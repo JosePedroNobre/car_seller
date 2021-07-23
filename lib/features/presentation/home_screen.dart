@@ -73,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildCarItem(CarImage? carImage) {
-    return Card(child: Image.network(carImage?.uri ?? ""));
+    var _carImage = '${carImage?.uri}_2.jpg';
+    return Card(child: Image.network(_carImage));
   }
 
   _buildLoading() {
@@ -86,5 +87,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _buildErrorScreen() {
     return Center(child: Text("Error while Loading"));
+  }
+}
+
+extension CareerPlanTypeInfo on String {
+  String getBigSize() {
+    return "ef";
+  }
+
+  String getSmallSize() {
+    return "ef";
   }
 }
