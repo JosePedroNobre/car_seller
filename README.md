@@ -4,5 +4,11 @@
 
 RELEASES
 
-**Run app in prod** 
-`flutter run lib/main_prod.dart`  
+**Run app** 
+`flutter run lib/main.dart`  
+
+**Build app android** 
+`flutter build apk lib/main.dart`  
+
+**Build app ios** 
+`flutter build ios lib/main.dart`  
