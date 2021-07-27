@@ -1,6 +1,7 @@
 **After opening the project for the first time or if Pubspec is updated do:**
 
-   1) `flutter pub get`
+   1) `flutter clean`
+   2) `flutter pub get`
 
 RELEASES
 
@@ -12,6 +13,9 @@ RELEASES
 
 **Build app ios** 
 `flutter build ios lib/main.dart`  
+
+
+TESTS
 
 **Run integration tests**
 `flutter test test/car_list_test.dart`
