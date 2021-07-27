@@ -9,7 +9,7 @@ void main() {
     blocTest(
       'emits [CarScreenLoading && CarScreenLoaded] when cars are loaded with success',
       build: () async => CarBloc(CarSellerRepository(CarSellerRemoteDataSource())),
-      act: (bloc) => bloc.add(GetCars()),
+      act: (bloc) => bloc?.add(GetCars()),
       expect: () => [CarScreenLoading(), CarScreenLoaded()],
     );
   });
