@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 
 class BaseApi {
   static String _baseURL = "https://www.particleforward.com/api/challenge/";
-  static const String TAG = 'BaseAPI';
   Dio dio = Dio();
 
   BaseApi() {

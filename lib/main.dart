@@ -1,7 +1,7 @@
 import 'package:car_seller_app/features/data/car_seller_data_source.dart';
 import 'package:car_seller_app/features/data/car_seller_repository.dart';
-import 'package:car_seller_app/features/presentation/bloc/home_screen_bloc.dart';
-import 'package:car_seller_app/features/presentation/home_screen.dart';
+import 'package:car_seller_app/features/presentation/bloc/car_bloc.dart';
+import 'package:car_seller_app/features/presentation/car_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HomeScreenBloc>(
-          create: (context) => HomeScreenBloc(CarSellerRepository(CarSellerRemoteDataSource())),
+        BlocProvider<CarBloc>(
+          create: (context) => CarBloc(CarSellerRepository(CarSellerRemoteDataSource())),
         )
       ],
       child: MaterialApp(
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        home: HomeScreen(),
+        home: CarListScreen(),
       ),
     );
   }

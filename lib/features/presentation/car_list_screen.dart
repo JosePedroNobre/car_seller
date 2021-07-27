@@ -1,21 +1,23 @@
-import 'package:car_seller_app/features/presentation/bloc/home_screen_bloc.dart';
+import 'package:car_seller_app/features/presentation/bloc/car_bloc.dart';
+import 'package:car_seller_app/features/presentation/car_details.dart';
+import 'package:car_seller_app/image_utils.dart';
 import 'package:car_seller_app/network/model/car_image.dart';
 import 'package:car_seller_app/network/responses/car_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class CarListScreen extends StatefulWidget {
+  const CarListScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _CarListScreenState createState() => _CarListScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CarListScreenState extends State<CarListScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<HomeScreenBloc>(context).add(GetCars());
+    BlocProvider.of<CarBloc>(context).add(GetCars());
   }
 
   @override
@@ -28,23 +30,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildConsumer() {
-    return BlocConsumer<HomeScreenBloc, HomeScreenState>(
+    return BlocConsumer<CarBloc, HomeScreenState>(
         listenWhen: (previous, current) {
           return false;
         },
         listener: (context, state) {},
         buildWhen: (previous, current) =>
-            current is HomeScreenError || current is HomeScreenLoading || current is HomeScreenLoaded,
+            current is CarScreenError || current is CarScreenLoading || current is CarScreenLoaded,
         builder: (context, state) {
-          if (state is HomeScreenLoading) {
+          if (state is CarScreenLoading) {
             _buildLoading();
           }
 
-          if (state is HomeScreenLoaded) {
+          if (state is CarScreenLoaded) {
             return _buildCarBody(state.carResponse);
           }
 
-          if (state is HomeScreenError) {
+          if (state is CarScreenError) {
             return _buildErrorScreen();
           }
 
@@ -56,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return carResponse != null
         ? Column(
             children: [
-              Text(carResponse.title ?? ""),
+              Text(carResponse.title ?? "N/A"),
               Expanded(
                 child: ListView.builder(
                   shrinkWrap: false,
@@ -73,8 +75,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildCarItem(CarImage? carImage) {
-    var _carImage = '${carImage?.uri}_2.jpg';
-    return Card(child: Image.network(_carImage));
+    return InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CarDetails(carImage: carImage)),
+          );
+        },
+        child: Card(child: Image.network(getImage(carImage, ImageSize.NORMAL))));
   }
 
   _buildLoading() {
@@ -82,20 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildEmptyState() {
-    return Center(child: Text("No car to load"));
+    return Center(child: Text("No cars to load"));
   }
 
   _buildErrorScreen() {
-    return Center(child: Text("Error while Loading"));
-  }
-}
-
-extension CareerPlanTypeInfo on String {
-  String getBigSize() {
-    return "ef";
-  }
-
-  String getSmallSize() {
-    return "ef";
+    return Center(child: Text("Error while loading cars"));
   }
 }
