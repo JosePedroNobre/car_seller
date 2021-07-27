@@ -13,7 +13,6 @@ RELEASES
 **Build app ios** 
 `flutter build ios lib/main.dart`  
 
-
 **Run integration tests**
 `flutter test test/car_list_test.dart`
 
